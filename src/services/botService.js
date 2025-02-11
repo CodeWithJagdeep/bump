@@ -23,23 +23,37 @@ const sendMessage = async () => {
 
     for (let channelId of bumpChannels) {
       const channel = client.channels.cache.get(channelId.ChannelId);
-      //   console.log(channelId);
+
       if (!channel) {
-        console.error("⚠️ Channel not found!");
-        return;
+        console.error(`⚠️ Channel not found! (ID: ${channelId.ChannelId})`);
+        continue; // Skip to the next channel instead of stopping execution
       }
+
+      // Fetch the guild name (if available)
+      const guild = channel.guild;
+      const guildName = guild ? guild.name : "Unknown Guild";
+      const channelName = channel.name || "Unknown Channel";
+
+      console.log(
+        `📌 Preparing to send bump in: 
+           ➤ Guild: ${guildName} (ID: ${guild?.id || "N/A"})
+           ➤ Channel: ${channelName} (ID: ${channel.id})`
+      );
 
       setTimeout(async () => {
         try {
           await channel.sendSlash("302050872383242240", "bump");
-          console.log("✅ Slash command sent!");
+          console.log(`✅ Bump sent in #${channelName} of ${guildName}`);
         } catch (slashError) {
-          console.error("❌ Error sending slash command:", slashError);
+          console.error(
+            `❌ Error sending slash command in #${channelName}:`,
+            slashError
+          );
         }
       }, 2000);
     }
   } catch (error) {
-    console.error("❌ Error sending message:", error);
+    console.error("❌ Error fetching bump channels:", error);
   }
 };
 
