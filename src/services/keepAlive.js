@@ -7,7 +7,7 @@ const config = require("../config/config");
 const keepAlive = () => {
   setInterval(async () => {
     try {
-      await axios.get(config.pingUrl);
+      await axios.get("https://bump-i7b9.onrender.com");
       console.log("🔄 Sent dummy request to keep bot alive.");
     } catch (err) {
       console.log("⚠️ Dummy request failed (ignored).");

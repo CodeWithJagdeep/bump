@@ -31,7 +31,7 @@ const sendMessage = async () => {
 
       setTimeout(async () => {
         try {
-          await channel.sendSlash(config.bumpBotId, "bump");
+          await channel.sendSlash("302050872383242240", "bump");
           console.log("✅ Slash command sent!");
         } catch (slashError) {
           console.error("❌ Error sending slash command:", slashError);
